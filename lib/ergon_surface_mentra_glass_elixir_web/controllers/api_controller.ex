@@ -31,7 +31,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
       name: "mentra-glass",
       packageName: System.get_env("PACKAGE_NAME", "com.ergon.mentra-glass"),
       displayName: "Mentra Glass",
-      version: "0.2.7",
+      version: "0.2.8",
       description: "Direct AI interaction with Bot Army — Real-time HUD with chat",
       author: %{
         name: "Bot Army",
