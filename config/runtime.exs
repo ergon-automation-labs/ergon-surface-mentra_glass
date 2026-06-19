@@ -45,13 +45,7 @@ if config_env() == :prod do
 
   config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endpoint,
     url: [host: host, port: 50000, scheme: "https"],
-    http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/bandit/Bandit.html#t:options/0
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0}
-    ],
+    http: false,
     https: [
       port: String.to_integer(System.get_env("PORT", "50000")),
       cipher_suite: :compatible,
