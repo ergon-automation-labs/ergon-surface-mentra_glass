@@ -41,7 +41,8 @@ run: deps
 clean:
 	mix clean
 
-release:
+release: deps
+	MIX_ENV=prod mix assets.deploy
 	MIX_ENV=prod mix release --overwrite
 	@echo "✓ Release built in _build/prod/rel/"
 
