@@ -8,7 +8,6 @@
 import Config
 
 config :ergon_surface_mentra_glass_elixir,
-  ecto_repos: [ErgonSurfaceMentraGlassElixir.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configure the endpoint
