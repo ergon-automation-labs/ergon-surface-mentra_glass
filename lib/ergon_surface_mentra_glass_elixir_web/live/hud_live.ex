@@ -33,35 +33,35 @@ defmodule ErgonSurfaceMentraGlassElixir.Web.HUDLive do
               <%= for {key, status} <- @system_status do %>
                 <div class="bot-status">
                   <div class="status-indicator" style={status_color(status)}></div>
-                  <span class="bot-name"><%= key %></span>
+                  <span class="bot-name">{key}</span>
                 </div>
               <% end %>
             </div>
           </div>
-
-          <!-- Task Updates -->
+          
+    <!-- Task Updates -->
           <div class="status-section">
             <div class="status-section-title">Agent Updates</div>
             <div id="task-updates">
               <%= for update <- Enum.reverse(@task_updates) do %>
                 <div class="task-update" style={update_color(update.status)}>
-                  <div class="task-agent"><%= update.agent %></div>
-                  <div class="task-message"><%= update.message %></div>
-                  <div class="task-time"><%= format_time(update.timestamp) %></div>
+                  <div class="task-agent">{update.agent}</div>
+                  <div class="task-message">{update.message}</div>
+                  <div class="task-time">{format_time(update.timestamp)}</div>
                 </div>
               <% end %>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Chat Panel -->
+      
+    <!-- Chat Panel -->
       <div class="chat-panel">
         <div class="panel-header">Assistant</div>
         <div class="chat-messages" id="messages" phx-update="stream">
           <%= for {_id, message} <- @messages do %>
-            <div class="message <%= message.role %>">
-              <div class="message-bubble"><%= message.text %></div>
+            <div class={"message #{message.role}"}>
+              <div class="message-bubble">{message.text}</div>
             </div>
           <% end %>
         </div>
@@ -77,7 +77,7 @@ defmodule ErgonSurfaceMentraGlassElixir.Web.HUDLive do
             autocomplete="off"
           />
           <button phx-click="send_message" disabled={@loading}>
-            <%= if @loading, do: "..." , else: "Send" %>
+            {if @loading, do: "...", else: "Send"}
           </button>
         </div>
       </div>
@@ -327,27 +327,41 @@ defmodule ErgonSurfaceMentraGlassElixir.Web.HUDLive do
 
   defp send_chat_message(socket) do
     message = socket.assigns.current_message
+    user_msg_id = "user_#{System.monotonic_time()}"
 
-    {:noreply,
-     socket
-     |> assign(loading: true, current_message: "")
-     |> stream_insert(:messages, %{id: :user_#{System.monotonic_time()}, role: "user", text: message})
-     |> then(fn sock ->
-       case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(message) do
-         {:ok, response} ->
-           response_text = response["data"]["response"] || response["response"] || "No response"
-           sock
-           |> stream_insert(:messages, %{id: :assistant_#{System.monotonic_time()}, role: "assistant", text: response_text})
-           |> assign(loading: false)
+    socket =
+      socket
+      |> assign(loading: true, current_message: "")
+      |> stream_insert(:messages, %{id: user_msg_id, role: "user", text: message})
 
-         {:error, reason} ->
-           sock
-           |> stream_insert(:messages, %{id: :error_#{System.monotonic_time()}, role: "assistant", text: "Error: #{reason}"})
-           |> assign(loading: false)
-       end
-     |> push_event("scroll_to_bottom", %{})
-     end)
-    }
+    case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(message) do
+      {:ok, response} ->
+        response_text = response["data"]["response"] || response["response"] || "No response"
+        assistant_msg_id = "assistant_#{System.monotonic_time()}"
+
+        {:noreply,
+         socket
+         |> stream_insert(:messages, %{
+           id: assistant_msg_id,
+           role: "assistant",
+           text: response_text
+         })
+         |> assign(loading: false)
+         |> push_event("scroll_to_bottom", %{})}
+
+      {:error, reason} ->
+        error_msg_id = "error_#{System.monotonic_time()}"
+
+        {:noreply,
+         socket
+         |> stream_insert(:messages, %{
+           id: error_msg_id,
+           role: "assistant",
+           text: "Error: #{reason}"
+         })
+         |> assign(loading: false)
+         |> push_event("scroll_to_bottom", %{})}
+    end
   end
 
   @impl true

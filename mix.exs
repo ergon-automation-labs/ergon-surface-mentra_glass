@@ -4,7 +4,7 @@ defmodule ErgonSurfaceMentraGlassElixir.MixProject do
   def project do
     [
       app: :ergon_surface_mentra_glass_elixir,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -80,7 +80,11 @@ defmodule ErgonSurfaceMentraGlassElixir.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind ergon_surface_mentra_glass_elixir", "esbuild ergon_surface_mentra_glass_elixir"],
+      "assets.build": [
+        "compile",
+        "tailwind ergon_surface_mentra_glass_elixir",
+        "esbuild ergon_surface_mentra_glass_elixir"
+      ],
       "assets.deploy": [
         "tailwind ergon_surface_mentra_glass_elixir --minify",
         "esbuild ergon_surface_mentra_glass_elixir --minify",
