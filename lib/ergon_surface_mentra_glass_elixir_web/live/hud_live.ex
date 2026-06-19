@@ -1,4 +1,4 @@
-defmodule ErgonSurfaceMentraGlassElixir.Web.HUDLive do
+defmodule ErgonSurfaceMentraGlassElixirWeb.HUDLive do
   use ErgonSurfaceMentraGlassElixirWeb, :live_view
 
   require Logger
