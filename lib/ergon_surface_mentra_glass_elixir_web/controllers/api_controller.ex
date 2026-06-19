@@ -17,7 +17,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
         nats_port: System.get_env("NATS_PORT", "4222")
       },
       endpoints: %{
-        webview: "/",
+        webview: "/webview",
         api_health: "/api/health",
         api_debug: "/api/debug",
         app_json: "/app.json"
@@ -33,7 +33,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
       version: "0.1.0",
       description: "Direct AI interaction with Bot Army — Real-time HUD with chat",
       webview: %{
-        url: "/",
+        url: "/webview",
         width: 700,
         height: 900
       },
