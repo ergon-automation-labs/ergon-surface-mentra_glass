@@ -11,7 +11,7 @@ mentra_glass:
   branch: 'main'
 
   # Application port (behind nginx reverse proxy)
-  port: 4000
+  port: 50000
 
   # SSL certificate paths (if using nginx)
   ssl_cert: '/etc/letsencrypt/live/mentra-glass.yourdomain.com/fullchain.pem'

@@ -6,7 +6,7 @@
 {%- set app_user = 'deploy' %}
 {%- set app_group = 'deploy' %}
 {%- set app_home = '/opt/ergon/surfaces/mentra_glass' %}
-{%- set app_port = 4000 %}
+{%- set app_port = pillar.get('mentra_glass:port', 50000) %}
 {%- set nats_host = pillar.get('nats:primary_host', 'localhost') %}
 {%- set nats_port = pillar.get('nats:primary_port', 4222) %}
 {%- set mentra_os_api_key = pillar.get('mentra_glass:api_key', '') %}

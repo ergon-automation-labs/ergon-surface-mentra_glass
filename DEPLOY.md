@@ -43,13 +43,13 @@ systemctl status mentra-glass
 journalctl -u mentra-glass -f
 
 # Test health endpoint
-curl http://localhost:4000/api/health
+curl http://localhost:50000/api/health
 
 # Test debug endpoint
-curl http://localhost:4000/api/debug
+curl http://localhost:50000/api/debug
 
 # Check app.json manifest
-curl http://localhost:4000/app.json
+curl http://localhost:50000/app.json
 ```
 
 ### 4. Configure MentraOS Console
