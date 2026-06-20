@@ -31,9 +31,10 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
     get "/app.json", APIController, :app_json
   end
 
-  # Fallback route for app.json at root level
+  # Fallback route for app.json and app_config.json at root level
   scope "/", ErgonSurfaceMentraGlassElixirWeb do
     pipe_through :api
     get "/app.json", APIController, :app_json
+    get "/app_config.json", APIController, :app_config_json
   end
 end

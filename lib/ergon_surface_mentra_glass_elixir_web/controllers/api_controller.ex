@@ -100,4 +100,33 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
       }
     })
   end
+
+  def app_config_json(conn, _params) do
+    config = %{
+      version: "1.0",
+      tls: %{
+        allowSelfSigned: true,
+        certificatePinning: %{enabled: false},
+        verifyHostname: false
+      },
+      server: %{
+        url: "https://100.64.178.53:50000",
+        certificateFile: "/api/certificate?format=pem",
+        timeout: 30000
+      },
+      webview: %{
+        url: "/webview",
+        width: 700,
+        height: 900,
+        allowDevTools: true
+      },
+      permissions: ["network", "microphone", "camera"],
+      development: %{
+        enableDebug: true,
+        logLevel: "debug"
+      }
+    }
+
+    json(conn, config)
+  end
 end
