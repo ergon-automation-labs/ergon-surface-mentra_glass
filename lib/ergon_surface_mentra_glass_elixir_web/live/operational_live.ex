@@ -635,15 +635,38 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
     index = socket.assigns.current_activity_index
     activity_type = current_activity_type(socket.assigns.activity_cycle, index)
 
-    activity = mock_activity(activity_type)
+    # Fetch real activity data from bots
+    activity = fetch_activity_data(activity_type)
 
-    task_context = [
-      %{name: "Deploy mentra_glass", progress: 85, bots: ["claude_bridge", "gtd_bot"]},
-      %{name: "Fix chat timeout", progress: 60, bots: ["llm_bot"]},
-      %{name: "Update docs", progress: 30, bots: ["claude_bridge"]}
-    ]
+    # Fetch real task context
+    task_context = ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_active_tasks()
 
     assign(socket, current_activity: activity, task_context: task_context)
+  end
+
+  defp fetch_activity_data(:fitness) do
+    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_fitness_suggestions()
+    |> Enum.random()
+  rescue
+    _ -> mock_activity(:fitness)
+  end
+
+  defp fetch_activity_data(:chores) do
+    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_chore_suggestions()
+    |> Enum.random()
+  rescue
+    _ -> mock_activity(:chores)
+  end
+
+  defp fetch_activity_data(:wife_care) do
+    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_wife_care_suggestions()
+    |> Enum.random()
+  rescue
+    _ -> mock_activity(:wife_care)
+  end
+
+  defp fetch_activity_data(:rest) do
+    mock_activity(:rest)
   end
 
   defp mock_activity(:fitness) do
