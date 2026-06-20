@@ -60,12 +60,23 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
         <div class="marquee-content">
           <span class="marquee-icon">🤖</span>
           <span class="marquee-label">Bot Army</span>
-          <span class="marquee-separator">|</span>
+          <span class="marquee-separator desktop-only">|</span>
+          
+    <!-- Mobile Activity Info -->
+          <span class="mobile-activity-info">
+            <%= if @current_activity do %>
+              <span>{@current_activity.emoji}</span>
+              <span>{String.slice(@current_activity.title, 0..15)}</span>
+            <% end %>
+          </span>
+          
+    <!-- Desktop Metrics -->
+          <span class="marquee-separator desktop-only">|</span>
           <%= for {label, value} <- Enum.slice(@metrics, @metric_index, 1) do %>
-            <span class="marquee-metric">{label}: <strong>{value}</strong></span>
+            <span class="marquee-metric desktop-only">{label}: <strong>{value}</strong></span>
           <% end %>
-          <span class="marquee-separator">|</span>
-          <button class="marquee-cycle" phx-click="cycle_metric" title="Cycle metrics">
+          <span class="marquee-separator desktop-only">|</span>
+          <button class="marquee-cycle desktop-only" phx-click="cycle_metric" title="Cycle metrics">
             ↻
           </button>
         </div>
@@ -231,6 +242,20 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
         .marquee-cycle:active {
           background: #3b82f6;
           color: #fff;
+        }
+
+        .desktop-only {
+          display: flex;
+          align-items: center;
+        }
+
+        .mobile-activity-info {
+          display: none;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #e2e8f0;
         }
 
         @keyframes pulse {
@@ -451,16 +476,22 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
 
         /* Mobile Responsive Layout */
         @media (max-width: 768px) {
-          .main-grid {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto 1fr 1fr;
+          .desktop-only {
+            display: none !important;
           }
 
+          .mobile-activity-info {
+            display: flex !important;
+          }
+
+          .main-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+          }
+
+          /* Hide sidebar on mobile, show abbreviated in marquee */
           .activity-sidebar {
-            border-right: none;
-            border-bottom: 1px solid #334155;
-            padding: 12px;
-            max-height: 120px;
+            display: none;
           }
 
           .content-area {
@@ -502,12 +533,19 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           }
 
           .marquee-bar {
-            padding: 8px 12px;
-            font-size: 12px;
+            padding: 10px 12px;
+            font-size: 11px;
+            flex-wrap: wrap;
           }
 
           .marquee-icon {
-            font-size: 14px;
+            font-size: 16px;
+          }
+
+          .marquee-content {
+            flex-wrap: wrap;
+            gap: 8px;
+            width: 100%;
           }
 
           .message-bubble {
@@ -518,17 +556,20 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
 
         /* Phone Portrait (very small) */
         @media (max-width: 480px) {
-          .activity-sidebar {
-            max-height: 100px;
+          .marquee-label {
+            display: none;
           }
 
-          .marquee-label,
           .marquee-separator {
             display: none;
           }
 
           .marquee-content {
-            gap: 8px;
+            gap: 6px;
+          }
+
+          .marquee-metric {
+            font-size: 10px;
           }
 
           .tab-btn {
@@ -539,6 +580,11 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           .panel-header {
             font-size: 11px;
             padding: 6px 10px;
+          }
+
+          .marquee-cycle {
+            font-size: 10px;
+            padding: 4px 8px;
           }
         }
       </style>
