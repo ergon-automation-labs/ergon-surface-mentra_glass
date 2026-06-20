@@ -26,6 +26,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
 
     get "/health", APIController, :health
     get "/debug", APIController, :debug
+    get "/config", APIController, :config
     get "/app.json", APIController, :app_json
   end
 

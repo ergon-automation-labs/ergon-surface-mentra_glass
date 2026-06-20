@@ -22,7 +22,10 @@ config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endp
     layout: false
   ],
   pubsub_server: ErgonSurfaceMentraGlassElixir.PubSub,
-  live_view: [signing_salt: "U9KWw2cl"]
+  live_view: [
+    signing_salt: "U9KWw2cl",
+    check_origin: false
+  ]
 
 # Configure esbuild (the version is required)
 config :esbuild,

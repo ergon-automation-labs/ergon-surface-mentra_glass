@@ -21,7 +21,25 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
         webview: "/webview",
         api_health: "/api/health",
         api_debug: "/api/debug",
+        api_config: "/api/config",
         app_json: "/app.json"
+      }
+    })
+  end
+
+  def config(conn, _params) do
+    # Return the NATS configuration for the webview to use
+    # Use WebSocket connection (port 14222) for browser-based clients
+    nats_servers = System.get_env("NATS_SERVERS", "ws://localhost:14222")
+
+    json(conn, %{
+      nats: %{
+        servers: String.split(nats_servers, ","),
+        protocol: "websocket"
+      },
+      bridge: %{
+        chat_subject: "bridge.chat",
+        timeout_ms: 30000
       }
     })
   end
