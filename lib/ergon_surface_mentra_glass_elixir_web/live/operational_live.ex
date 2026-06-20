@@ -83,38 +83,41 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           />
         </div>
         
-    <!-- Center: Task Context -->
-        <div class="task-context-panel">
-          <div class="panel-header">📋 Task Context</div>
-          <div class="context-content">
-            <.task_context_display tasks={@task_context} />
+    <!-- Right: Content Area (split context/chat) -->
+        <div class="content-area">
+          <!-- Top: Task Context -->
+          <div class="task-context-panel">
+            <div class="panel-header">📋 Task Context</div>
+            <div class="context-content">
+              <.task_context_display tasks={@task_context} />
+            </div>
           </div>
-        </div>
-        
-    <!-- Right: Chat -->
-        <div class="chat-sidebar">
-          <div class="panel-header">💬 Chat</div>
-          <div class="chat-messages" id="messages" phx-update="stream">
-            <%= for {_id, message} <- @messages do %>
-              <div class={"message #{message.role}"}>
-                <div class="message-bubble">{message.text}</div>
-              </div>
-            <% end %>
-          </div>
+          
+    <!-- Bottom: Chat -->
+          <div class="chat-panel">
+            <div class="panel-header">💬 Chat</div>
+            <div class="chat-messages" id="messages" phx-update="stream">
+              <%= for {_id, message} <- @messages do %>
+                <div class={"message #{message.role}"}>
+                  <div class="message-bubble">{message.text}</div>
+                </div>
+              <% end %>
+            </div>
 
-          <div class="chat-input-area">
-            <input
-              id="message-input"
-              type="text"
-              placeholder="Ask..."
-              value={@current_message}
-              phx-keydown="send_message"
-              phx-change="update_message"
-              autocomplete="off"
-            />
-            <button phx-click="send_message" disabled={@loading}>
-              {if @loading, do: "...", else: "→"}
-            </button>
+            <div class="chat-input-area">
+              <input
+                id="message-input"
+                type="text"
+                placeholder="Ask..."
+                value={@current_message}
+                phx-keydown="send_message"
+                phx-change="update_message"
+                autocomplete="off"
+              />
+              <button phx-click="send_message" disabled={@loading}>
+                {if @loading, do: "...", else: "→"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -244,7 +247,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
         .main-grid {
           flex: 1;
           display: grid;
-          grid-template-columns: 200px 1fr 250px;
+          grid-template-columns: 180px 1fr;
           gap: 1px;
           padding: 1px;
           background: #0f172a;
@@ -262,13 +265,22 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           align-items: center;
         }
 
+        /* Content Area - splits context and chat vertically */
+        .content-area {
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          gap: 1px;
+          background: #0f172a;
+          overflow: hidden;
+        }
+
         /* Task Context Panel */
         .task-context-panel {
           background: #1a1f35;
-          border-right: 1px solid #334155;
           display: flex;
           flex-direction: column;
           overflow: hidden;
+          border-bottom: 1px solid #334155;
         }
 
         .panel-header {
@@ -288,8 +300,8 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           padding: 16px;
         }
 
-        /* Chat Sidebar */
-        .chat-sidebar {
+        /* Chat Panel */
+        .chat-panel {
           background: #1a1f35;
           display: flex;
           flex-direction: column;
@@ -434,6 +446,99 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+
+        /* Mobile Responsive Layout */
+        @media (max-width: 768px) {
+          .main-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr 1fr;
+          }
+
+          .activity-sidebar {
+            border-right: none;
+            border-bottom: 1px solid #334155;
+            padding: 12px;
+            max-height: 120px;
+          }
+
+          .content-area {
+            grid-template-rows: 1fr 1fr;
+            grid-column: 1;
+          }
+
+          .task-context-panel {
+            border-bottom: 1px solid #334155;
+          }
+
+          .panel-header {
+            font-size: 12px;
+            padding: 8px 12px;
+          }
+
+          .context-content {
+            padding: 12px;
+            font-size: 12px;
+          }
+
+          .chat-messages {
+            padding: 8px;
+          }
+
+          .chat-input-area {
+            padding: 8px;
+            gap: 4px;
+          }
+
+          .chat-input-area input {
+            padding: 6px 8px;
+            font-size: 12px;
+          }
+
+          .chat-input-area button {
+            padding: 6px 10px;
+            font-size: 12px;
+          }
+
+          .marquee-bar {
+            padding: 8px 12px;
+            font-size: 12px;
+          }
+
+          .marquee-icon {
+            font-size: 14px;
+          }
+
+          .message-bubble {
+            font-size: 11px;
+            padding: 6px 10px;
+          }
+        }
+
+        /* Phone Portrait (very small) */
+        @media (max-width: 480px) {
+          .activity-sidebar {
+            max-height: 100px;
+          }
+
+          .marquee-label,
+          .marquee-separator {
+            display: none;
+          }
+
+          .marquee-content {
+            gap: 8px;
+          }
+
+          .tab-btn {
+            font-size: 11px;
+            padding: 8px;
+          }
+
+          .panel-header {
+            font-size: 11px;
+            padding: 6px 10px;
           }
         }
       </style>
