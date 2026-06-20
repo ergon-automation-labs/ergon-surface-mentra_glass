@@ -17,8 +17,8 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
   scope "/", ErgonSurfaceMentraGlassElixirWeb do
     pipe_through :browser
 
-    live "/", HUDLive
-    live "/webview", HUDLive
+    live "/", TabsLive
+    live "/webview", TabsLive
   end
 
   scope "/api", ErgonSurfaceMentraGlassElixirWeb do
