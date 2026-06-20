@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.BotEventsController do
-  use ErgonSurfaceMentraGlassElixirWeb, :controller
+defmodule ErgonSurfaceHudElixirWeb.BotEventsController do
+  use ErgonSurfaceHudElixirWeb, :controller
 
   require Logger
 
@@ -15,7 +15,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.BotEventsController do
 
     # Broadcast to all connected clients
     Phoenix.PubSub.broadcast(
-      ErgonSurfaceMentraGlassElixir.PubSub,
+      ErgonSurfaceHudElixir.PubSub,
       "bot_updates",
       {:task_update, update}
     )

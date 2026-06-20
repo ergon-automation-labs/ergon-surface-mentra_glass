@@ -1,4 +1,4 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.Telemetry do
+defmodule ErgonSurfaceHudElixirWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -87,7 +87,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {ErgonSurfaceMentraGlassElixirWeb, :count_users, []}
+      # {ErgonSurfaceHudElixirWeb, :count_users, []}
     ]
   end
 end

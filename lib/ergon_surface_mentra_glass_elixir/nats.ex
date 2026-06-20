@@ -1,4 +1,4 @@
-defmodule ErgonSurfaceMentraGlassElixir.NATS do
+defmodule ErgonSurfaceHudElixir.NATS do
   require Logger
 
   def query_bridge(message) do

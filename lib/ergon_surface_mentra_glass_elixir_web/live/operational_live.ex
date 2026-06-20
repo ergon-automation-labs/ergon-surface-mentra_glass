@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
-  use ErgonSurfaceMentraGlassElixirWeb, :live_view
+defmodule ErgonSurfaceHudElixirWeb.OperationalLive do
+  use ErgonSurfaceHudElixirWeb, :live_view
 
   require Logger
 
@@ -754,7 +754,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
       |> assign(loading: true, current_message: "")
       |> stream_insert(:messages, %{id: user_msg_id, role: "user", text: message})
 
-    case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(message) do
+    case ErgonSurfaceHudElixir.NATS.query_bridge(message) do
       {:ok, response} ->
         response_text = response["data"]["response"] || response["response"] || "No response"
         assistant_msg_id = "assistant_#{System.monotonic_time()}"
@@ -790,27 +790,27 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
     activity = fetch_activity_data(activity_type)
 
     # Fetch real task context
-    task_context = ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_active_tasks()
+    task_context = ErgonSurfaceHudElixir.Services.ActivityService.get_active_tasks()
 
     assign(socket, current_activity: activity, task_context: task_context)
   end
 
   defp fetch_activity_data(:fitness) do
-    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_fitness_suggestions()
+    ErgonSurfaceHudElixir.Services.ActivityService.get_fitness_suggestions()
     |> Enum.random()
   rescue
     _ -> mock_activity(:fitness)
   end
 
   defp fetch_activity_data(:chores) do
-    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_chore_suggestions()
+    ErgonSurfaceHudElixir.Services.ActivityService.get_chore_suggestions()
     |> Enum.random()
   rescue
     _ -> mock_activity(:chores)
   end
 
   defp fetch_activity_data(:wife_care) do
-    ErgonSurfaceMentraGlassElixir.Services.ActivityService.get_wife_care_suggestions()
+    ErgonSurfaceHudElixir.Services.ActivityService.get_wife_care_suggestions()
     |> Enum.random()
   rescue
     _ -> mock_activity(:wife_care)
@@ -869,7 +869,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.OperationalLive do
 
   defp subscribe_to_updates(socket) do
     if connected?(socket) do
-      ErgonSurfaceMentraGlassElixir.NATS.subscribe_to_updates(self())
+      ErgonSurfaceHudElixir.NATS.subscribe_to_updates(self())
     end
 
     socket

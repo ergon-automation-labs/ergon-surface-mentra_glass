@@ -1,11 +1,11 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
-  use ErgonSurfaceMentraGlassElixirWeb, :router
+defmodule ErgonSurfaceHudElixirWeb.Router do
+  use ErgonSurfaceHudElixirWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, html: {ErgonSurfaceMentraGlassElixirWeb.Layouts, :root}
+    plug :put_root_layout, html: {ErgonSurfaceHudElixirWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -14,7 +14,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ErgonSurfaceMentraGlassElixirWeb do
+  scope "/", ErgonSurfaceHudElixirWeb do
     pipe_through :browser
 
     live "/", OperationalLive
@@ -22,7 +22,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
     live "/tabs", TabsLive
   end
 
-  scope "/api", ErgonSurfaceMentraGlassElixirWeb do
+  scope "/api", ErgonSurfaceHudElixirWeb do
     pipe_through :api
 
     get "/health", APIController, :health
@@ -33,7 +33,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
   end
 
   # Bot API endpoints
-  scope "/api/bots", ErgonSurfaceMentraGlassElixirWeb do
+  scope "/api/bots", ErgonSurfaceHudElixirWeb do
     pipe_through :api
 
     # Dashboard endpoints
@@ -61,7 +61,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Router do
   end
 
   # Fallback route for app.json and app_config.json at root level
-  scope "/", ErgonSurfaceMentraGlassElixirWeb do
+  scope "/", ErgonSurfaceHudElixirWeb do
     pipe_through :api
     get "/app.json", APIController, :app_json
     get "/app_config.json", APIController, :app_config_json

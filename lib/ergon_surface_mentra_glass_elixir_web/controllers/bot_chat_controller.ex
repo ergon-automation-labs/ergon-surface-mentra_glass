@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.BotChatController do
-  use ErgonSurfaceMentraGlassElixirWeb, :controller
+defmodule ErgonSurfaceHudElixirWeb.BotChatController do
+  use ErgonSurfaceHudElixirWeb, :controller
 
   require Logger
 
@@ -7,7 +7,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.BotChatController do
     Logger.info("Bot #{bot_name} sending message: #{message}")
 
     # Send via NATS bridge.chat
-    case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(message) do
+    case ErgonSurfaceHudElixir.NATS.query_bridge(message) do
       {:ok, response} ->
         response_text = response["data"]["response"] || response["response"] || "No response"
 
@@ -35,7 +35,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.BotChatController do
   def query(conn, %{"query" => query_text}) do
     Logger.info("Bot query: #{query_text}")
 
-    case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(query_text) do
+    case ErgonSurfaceHudElixir.NATS.query_bridge(query_text) do
       {:ok, response} ->
         response_text = response["data"]["response"] || response["response"] || "No response"
 

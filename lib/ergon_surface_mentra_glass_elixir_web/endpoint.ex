@@ -1,4 +1,4 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.Endpoint do
+defmodule ErgonSurfaceHudElixirWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ergon_surface_mentra_glass_elixir
 
   # The session will be stored in the cookie and signed,
@@ -24,7 +24,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Endpoint do
     at: "/",
     from: :ergon_surface_mentra_glass_elixir,
     gzip: not code_reloading?,
-    only: ErgonSurfaceMentraGlassElixirWeb.static_paths(),
+    only: ErgonSurfaceHudElixirWeb.static_paths(),
     raise_on_missing_only: code_reloading?
 
   # Code reloading can be explicitly enabled under the
@@ -47,5 +47,5 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug ErgonSurfaceMentraGlassElixirWeb.Router
+  plug ErgonSurfaceHudElixirWeb.Router
 end

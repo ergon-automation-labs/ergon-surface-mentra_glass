@@ -7,7 +7,7 @@ import Config
 # before starting your production server.
 # Mentra Glass is a stateless web surface with minimal static assets
 # Skip cache manifest requirement
-# config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endpoint,
+# config :ergon_surface_hud_elixir, ErgonSurfaceHudElixirWeb.Endpoint,
 #   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # SSL is handled by Nginx reverse proxy, not by Phoenix directly

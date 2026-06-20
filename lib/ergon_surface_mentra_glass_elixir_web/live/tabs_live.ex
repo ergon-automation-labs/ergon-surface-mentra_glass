@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.TabsLive do
-  use ErgonSurfaceMentraGlassElixirWeb, :live_view
+defmodule ErgonSurfaceHudElixirWeb.TabsLive do
+  use ErgonSurfaceHudElixirWeb, :live_view
 
   require Logger
 
@@ -683,7 +683,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.TabsLive do
       |> assign(loading: true, current_message: "")
       |> stream_insert(:messages, %{id: user_msg_id, role: "user", text: message})
 
-    case ErgonSurfaceMentraGlassElixir.NATS.query_bridge(message) do
+    case ErgonSurfaceHudElixir.NATS.query_bridge(message) do
       {:ok, response} ->
         response_text = response["data"]["response"] || response["response"] || "No response"
         assistant_msg_id = "assistant_#{System.monotonic_time()}"
@@ -722,7 +722,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.TabsLive do
 
   defp subscribe_to_updates(socket) do
     if connected?(socket) do
-      ErgonSurfaceMentraGlassElixir.NATS.subscribe_to_updates(self())
+      ErgonSurfaceHudElixir.NATS.subscribe_to_updates(self())
     end
 
     socket

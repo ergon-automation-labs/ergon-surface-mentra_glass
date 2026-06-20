@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
-  use ErgonSurfaceMentraGlassElixirWeb, :controller
+defmodule ErgonSurfaceHudElixirWeb.APIController do
+  use ErgonSurfaceHudElixirWeb, :controller
 
   def health(conn, _params) do
     json(conn, %{status: "ok", surface: "mentra-glass"})

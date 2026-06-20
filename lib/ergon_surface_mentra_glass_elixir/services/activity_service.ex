@@ -1,4 +1,4 @@
-defmodule ErgonSurfaceMentraGlassElixir.Services.ActivityService do
+defmodule ErgonSurfaceHudElixir.Services.ActivityService do
   require Logger
 
   @doc "Fetch fitness suggestions from fitness_bot"

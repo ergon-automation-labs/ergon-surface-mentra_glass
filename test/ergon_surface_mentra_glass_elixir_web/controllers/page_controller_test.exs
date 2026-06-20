@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.PageControllerTest do
-  use ErgonSurfaceMentraGlassElixirWeb.ConnCase
+defmodule ErgonSurfaceHudElixirWeb.PageControllerTest do
+  use ErgonSurfaceHudElixirWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

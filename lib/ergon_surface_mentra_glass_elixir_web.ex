@@ -1,12 +1,12 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb do
+defmodule ErgonSurfaceHudElixirWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use ErgonSurfaceMentraGlassElixirWeb, :controller
-      use ErgonSurfaceMentraGlassElixirWeb, :html
+      use ErgonSurfaceHudElixirWeb, :controller
+      use ErgonSurfaceHudElixirWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,7 +40,7 @@ defmodule ErgonSurfaceMentraGlassElixirWeb do
     quote do
       use Phoenix.Controller, formats: [:html, :json]
 
-      use Gettext, backend: ErgonSurfaceMentraGlassElixirWeb.Gettext
+      use Gettext, backend: ErgonSurfaceHudElixirWeb.Gettext
 
       import Plug.Conn
 
@@ -80,16 +80,16 @@ defmodule ErgonSurfaceMentraGlassElixirWeb do
   defp html_helpers do
     quote do
       # Translation
-      use Gettext, backend: ErgonSurfaceMentraGlassElixirWeb.Gettext
+      use Gettext, backend: ErgonSurfaceHudElixirWeb.Gettext
 
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components
-      import ErgonSurfaceMentraGlassElixirWeb.CoreComponents
+      import ErgonSurfaceHudElixirWeb.CoreComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS
-      alias ErgonSurfaceMentraGlassElixirWeb.Layouts
+      alias ErgonSurfaceHudElixirWeb.Layouts
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
@@ -99,9 +99,9 @@ defmodule ErgonSurfaceMentraGlassElixirWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: ErgonSurfaceMentraGlassElixirWeb.Endpoint,
-        router: ErgonSurfaceMentraGlassElixirWeb.Router,
-        statics: ErgonSurfaceMentraGlassElixirWeb.static_paths()
+        endpoint: ErgonSurfaceHudElixirWeb.Endpoint,
+        router: ErgonSurfaceHudElixirWeb.Router,
+        statics: ErgonSurfaceHudElixirWeb.static_paths()
     end
   end
 

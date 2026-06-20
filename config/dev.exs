@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixir.Repo,
+config :ergon_surface_hud_elixir, ErgonSurfaceHudElixir.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "ergon_surface_mentra_glass_elixir_dev",
+  database: "ergon_surface_hud_elixir_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixir.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endpoint,
+config :ergon_surface_hud_elixir, ErgonSurfaceHudElixirWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}],
@@ -27,8 +27,8 @@ config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endp
   watchers: [
     esbuild:
       {Esbuild, :install_and_run,
-       [:ergon_surface_mentra_glass_elixir, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:ergon_surface_mentra_glass_elixir, ~w(--watch)]}
+       [:ergon_surface_hud_elixir, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:ergon_surface_hud_elixir, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -55,7 +55,7 @@ config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endp
 # different ports.
 
 # Reload browser tabs when matching files change.
-config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endpoint,
+config :ergon_surface_hud_elixir, ErgonSurfaceHudElixirWeb.Endpoint,
   live_reload: [
     web_console_logger: true,
     patterns: [
@@ -64,13 +64,13 @@ config :ergon_surface_mentra_glass_elixir, ErgonSurfaceMentraGlassElixirWeb.Endp
       # Gettext translations
       ~r"priv/gettext/.*\.po$",
       # Router, Controllers, LiveViews and LiveComponents
-      ~r"lib/ergon_surface_mentra_glass_elixir_web/router\.ex$",
-      ~r"lib/ergon_surface_mentra_glass_elixir_web/(controllers|live|components)/.*\.(ex|heex)$"
+      ~r"lib/ergon_surface_hud_elixir_web/router\.ex$",
+      ~r"lib/ergon_surface_hud_elixir_web/(controllers|live|components)/.*\.(ex|heex)$"
     ]
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :ergon_surface_mentra_glass_elixir, dev_routes: true
+config :ergon_surface_hud_elixir, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"

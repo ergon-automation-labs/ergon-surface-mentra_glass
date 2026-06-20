@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.BotDashboardController do
-  use ErgonSurfaceMentraGlassElixirWeb, :controller
+defmodule ErgonSurfaceHudElixirWeb.BotDashboardController do
+  use ErgonSurfaceHudElixirWeb, :controller
 
   def status(conn, _params) do
     # Return current system status

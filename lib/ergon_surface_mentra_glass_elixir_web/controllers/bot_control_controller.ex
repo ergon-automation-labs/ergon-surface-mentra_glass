@@ -1,5 +1,5 @@
-defmodule ErgonSurfaceMentraGlassElixirWeb.BotControlController do
-  use ErgonSurfaceMentraGlassElixirWeb, :controller
+defmodule ErgonSurfaceHudElixirWeb.BotControlController do
+  use ErgonSurfaceHudElixirWeb, :controller
 
   require Logger
 

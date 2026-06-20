@@ -48,7 +48,7 @@ release: deps
 
 publish-release: release
 	@echo "Publishing to GitHub..."
-	@RELEASE_NAME="ergon_surface_mentra_glass_elixir"; \
+	@RELEASE_NAME="ergon_surface_hud_elixir"; \
 	VERSION=$$(cat _build/prod/rel/$$RELEASE_NAME/releases/start_erl.data | awk '{print $$2}'); \
 	tar -czf $$RELEASE_NAME-$$VERSION.tar.gz -C _build/prod/rel $$RELEASE_NAME/; \
 	gh release create v$$VERSION $$RELEASE_NAME-$$VERSION.tar.gz --draft=false; \
