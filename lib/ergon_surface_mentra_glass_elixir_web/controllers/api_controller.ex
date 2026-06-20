@@ -40,8 +40,38 @@ defmodule ErgonSurfaceMentraGlassElixirWeb.APIController do
       bridge: %{
         chat_subject: "bridge.chat",
         timeout_ms: 30000
+      },
+      tls: %{
+        certificate_url: "/api/certificate",
+        certificate_format: "pem"
       }
     })
+  end
+
+  def certificate(conn, %{"format" => format}) when format in ["pem", "der"] do
+    cert_path =
+      case format do
+        "pem" -> "/var/lib/bot_army/certs/mentra-glass.pem"
+        "der" -> "/var/lib/bot_army/certs/mentra-glass.der"
+      end
+
+    if File.exists?(cert_path) do
+      content = File.read!(cert_path)
+
+      content_type =
+        if format == "der", do: "application/x-x509-ca-cert", else: "application/x-pem-file"
+
+      conn
+      |> put_resp_content_type(content_type)
+      |> send_resp(200, content)
+    else
+      send_resp(conn, 404, "Certificate not found")
+    end
+  end
+
+  def certificate(conn, _params) do
+    # Default to PEM format
+    certificate(conn, %{"format" => "pem"})
   end
 
   def app_json(conn, _params) do
