@@ -82,12 +82,12 @@ defmodule ErgonSurfaceHudElixir.MixProject do
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": [
         "compile",
-        "tailwind ergon_surface_mentra_glass_elixir",
-        "esbuild ergon_surface_mentra_glass_elixir"
+        "tailwind ergon_surface_hud_elixir",
+        "esbuild ergon_surface_hud_elixir"
       ],
       "assets.deploy": [
-        "tailwind ergon_surface_mentra_glass_elixir --minify",
-        "esbuild ergon_surface_mentra_glass_elixir --minify",
+        "tailwind ergon_surface_hud_elixir --minify",
+        "esbuild ergon_surface_hud_elixir --minify",
         "phx.digest"
       ],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]
